@@ -9,7 +9,7 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-const MOVE_INTERVAL = 80;
+const MOVE_INTERVAL = 70;
 
 function initPosition() {
     return {
@@ -58,17 +58,28 @@ function drawCell(ctx, x, y, color) {
 function drawApple(ctx, x, y) {
     var img = new Image();
     img.onload = function() {
-      ctx.drawImage(img,x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     };
     img.src = 'apple.png';
 }
+
+function drawHead(ctx, x, y) {
+    var img = new Image();
+    img.onload = function() {
+      ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    };
+    img.src = 'head.jpg';
+}
+
 
 function drawScore(snake) {
     let scoreCanvas;
     if (snake.color == snake1.color) {
         scoreCanvas = document.getElementById("score1Board");
-    } else {
+    } else if (snake.color == snake2.color) {
         scoreCanvas = document.getElementById("score2Board");
+    } else {
+        scoreCanvas = document.getElementById("score3Board");
     }
     let scoreCtx = scoreCanvas.getContext("2d");
 
@@ -85,7 +96,7 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
-        drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+        drawHead(ctx, snake1.head.x, snake1.head.y);
         for (let i = 1; i < snake1.body.length; i++) {
             drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
         }
